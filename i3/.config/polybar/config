@@ -1,0 +1,251 @@
+;--------------------------------------------
+; colors                                    ;
+;--------------------------------------------
+
+[colors]
+
+	bar_bg = ${xrdb:color0}
+	bar_fg = ${xrdb:color7}
+
+	border_col = ${xrdb:color0}
+
+	modules_bg = ${xrdb:color7}
+	modules_fg = ${xrdb:color0}
+
+	mod_bg = ${xrdb:color7}
+
+	modules_prefix_bg = ${xrdb:color7}
+	modules_prefix_fg = ${xrdb:color0}
+
+	urgent_bg  = ${xrdb:color1}
+	focused_bg = ${xrdb:color10}
+
+	essid_p_bg   = ${xrdb:color6}
+	down_p_bg    = #5e606c
+	cpu_p_bg     = ${xrdb:color5}
+	ram_p_bg     = ${xrdb:color11}
+	vol_p_bg     = #637b81
+	bright_p_bg  = #c29f6f
+	battery_p_bg = ${xrdb:color9}
+	time_p_bg    = ${xrdb:color10}
+
+;--------------------------------------------
+; bars                                      ;
+;--------------------------------------------
+
+[bar/base]
+	dpi      = 200
+	width    = 100%
+	height   = 25 
+	offset-x = 0
+	offset-y = 0
+
+	bottom = false
+
+	background = #000f0f0f
+	foreground = ${colors.bar_fg}
+
+	border-top-size     = 0
+	border-bottom-size  = 5
+	border-top-color    = ${colors.bar_bg}
+	border-bottom-color = #000f0f0f
+
+	font-N = <fontconfig pattern>;<vertical offset>
+	font-0 = FontAwesome:size=6;2
+	font-1 = Droid:pixelsize=6;2
+	font-2 = Droid:pixelsize=6;2
+
+	tray-position = right
+
+	spacing            = 0
+	padding-left       = 2
+	padding-right      = 1
+	module-margin-left = 2
+
+	modules-left   = workspaces 
+	modules-center = xwindow
+	modules-right  = network volume cpu date
+
+	scroll-up = i3wm-wsnext
+	scroll-down = i3wm-wsprev
+
+	fixed-center = true
+
+;--------------------------------------------
+; modules                                   ;
+;--------------------------------------------
+
+[module/network]
+	type          = internal/network
+	interface     = eno1
+	ping-interval = 3
+
+[module/xwindow]
+	y-offset      = 10
+	type          = internal/xwindow
+	format        = <label>
+	label         = %title:0:50:%
+	label-padding = 1
+
+[module/date]
+	type     = internal/date
+	interval = 1.0
+	date     = %a %b %d %Y
+	date-alt =  [ %a %d, %b |
+	time-alt     = "%a %I:%M %p "
+	time =    %H:%M:%S 
+	label    = %date% %time%
+
+	format         = <label>
+	format-padding = 0
+
+	format-prefix            =  
+	format-prefix-background = ${colors.time_p_bg}
+	format-prefix-foreground = ${colors.modules_prefix_fg}
+	format-prefix-padding    = 1
+
+	label-background = ${colors.time_p_bg}
+	label-foreground = ${colors.modules_fg}
+	label-padding    = 2
+
+[module/volume]
+	type          = internal/volume
+	format-volume = <label-volume>
+
+	format-volume-prefix            =  
+	format-volume-prefix-background = ${colors.ram_p_bg}
+	format-volume-prefix-foreground = ${colors.modules_prefix_fg}
+	format-volume-prefix-padding    = 1
+
+	label-volume            = %percentage%%
+	label-volume-background = ${colors.ram_p_bg}
+	label-volume-foreground = ${colors.modules_fg}
+	label-volume-padding    = 1
+
+	format-muted = <label-muted>
+
+	format-muted-prefix            = 
+	format-muted-prefix-padding    = 1
+	format-muted-prefix-background = ${colors.ram_p_bg}
+	format-muted-prefix-foreground = ${colors.modules_prefix_fg}
+
+	label-muted            = 0%
+	label-muted-foreground = ${colors.modules_fg}
+	label-muted-background = ${colors.ram_p_bg}
+	label-muted-padding    = 1
+
+	format-volume-padding = 0
+	format-muted-padding  = 0
+
+	ramp-headphones-0 = 
+
+[module/cpu]
+	type             = internal/cpu
+	interval         = 0.5
+	format           = <label>
+	label            = %percentage%%
+	label-background = ${colors.modules_bg}
+	label-foreground = ${colors.modules_fg}
+	label-padding    = 1
+
+	format-prefix = 
+
+	format-prefix-padding    = 1
+	format-prefix-background = ${colors.cpu_p_bg}
+	format-prefix-foreground = ${colors.modules_prefix_fg}
+
+[module/ram]
+	type     = internal/memory
+	interval = 3
+
+	format           = <label>
+	label            = "%percentage_used%%"
+	label-background = ${colors.modules_bg}
+	label-foreground = ${colors.modules_fg}
+	label-padding    = 1
+
+;	format-prefix = 
+
+	format-prefix-padding    = 1
+	format-prefix-background = ${colors.ram_p_bg}
+	format-prefix-foreground = ${colors.modules_prefix_fg}
+
+[module/down]
+	inherit = module/network
+
+	format-connected = <label-connected>
+
+	format-connected-prefix            = 
+	format-connected-prefix-background = ${colors.down_p_bg}
+	format-connected-prefix-foreground = ${colors.modules_prefix_fg}
+	format-connected-prefix-padding    = 1
+
+	label-connected               = %{T2}%downspeed:7%%{T-}
+	label-connected-background    = ${colors.modules_bg}
+	label-connected-foreground    = ${colors.modules_fg}
+	label-connected-padding-right = 1
+
+[module/padding]
+	type               = custom/text
+	content            = |
+	content-foreground = ${colors.bg}
+	content-background = ${colors.bg}
+
+[module/paddinglite]
+	type               = custom/text
+	content            = |
+	content-foreground = #000f0f0f
+	content-background = #000f0f0f
+
+[module/workspaces]
+
+	type            = internal/i3
+	format          = <label-state> <label-mode>
+	index-sort      = true
+	wrapping-scroll = false
+	strip-wsnumbers = true
+
+	label-mode-background = ${colors.modules_bg}
+	label-mode-foreground = ${colors.modules_prefix_fg}
+	label-mode-padding    = 1
+
+	label-focused            = %name%
+	label-focused-background = ${colors.focused_bg}
+	label-focused-foreground = ${colors.modules_fg}
+	label-focused-padding    = 1
+
+	label-unfocused            = %name%
+	label-unfocused-background = ${colors.modules_bg}
+	label-unfocused-foreground = ${colors.modules_prefix_fg}
+	label-unfocused-padding    = 1
+
+	label-visible            = %name%
+	label-visible-background = ${colors.modules_bg}
+	label-visible-foreground = ${colors.modules_prefix_fg}
+	label-visible-padding    = 1
+
+	label-urgent            = %name%
+	label-urgent-background = ${xrdb:color1}
+	label-urgent-foreground = ${colors.modules_prefix_bg}
+	label-urgent-padding    = 1
+
+
+[module/i3]
+	type = internal/i3
+
+	; Use fuzzy (partial) matching on labels when assigning 
+	; icons to workspaces
+	; Example: code;♚ will apply the icon to all workspaces 
+	; containing 'code' in the label
+	; Default: false
+	fuzzy-match = true
+
+	; ws-icon-[0-9]+ = label;icon
+	; NOTE: The label needs to match the name of the i3 workspace
+	ws-icon-0 = 1;♚
+	ws-icon-1 = 2;♛
+	ws-icon-2 = 3;♜
+	ws-icon-3 = 4;♝
+	ws-icon-4 = 5;♞
+	ws-icon-default = ♟
+

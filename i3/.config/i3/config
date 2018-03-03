@@ -16,6 +16,8 @@ set $mod Mod4
 #font pango:monospace 8
 font pango:Droid, FontAwesome 13
 
+new_window pixel 3
+new_float  pixel 3
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -183,6 +185,13 @@ set $black       #282828
 set $darkblack   #1d2021
 set $transparent #00000000
 
+
+#bindsym $mod+minus       gaps inner all minus 5
+#bindsym $mod+plus        gaps inner all plus  5
+#bindsym $mod+Shift+minus gaps outer all minus 5
+#bindsym $mod+Shift+plus  gaps outer all plus  5
+# }}}
+
 set $ws1  "1:  "
 set $ws2  "2:  "
 set $ws3  "3:  "
@@ -204,17 +213,17 @@ client.focused_inactive $black      $black      $white      $darkblack  $darkbla
 client.urgent           $darkred    $darkred    $black      $darkred    $darkred
 client.background       $black
 
-set $default_gaps_inner 0
-set $default_gaps_outer 0
+set $default_gaps_inner 15
+set $default_gaps_outer 10
 gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
 
-workspace $ws1 gaps inner 0
-workspace $ws1 gaps outer 0
-workspace $ws9 gaps inner 0
-workspace $ws9 gaps outer 0
-workspace $ws10 gaps inner 0
-workspace $ws10 gaps outer 0
+#workspace $ws1 gaps inner 0
+#workspace $ws1 gaps outer 0
+#workspace $ws9 gaps inner 0
+#workspace $ws9 gaps outer 0
+#workspace $ws10 gaps inner 0
+#workspace $ws10 gaps outer 0
 
 workspace_auto_back_and_forth yes
 force_display_urgency_hint 0 ms
@@ -245,33 +254,33 @@ mode "$mode_power" {
     bindsym Escape mode "default"
 }
  
-bar {
+#bar {
 #    verbose yes
-    status_command i3blocks
-    i3bar_command i3bar -t
-    position top
+#    status_command i3blocks
+#    i3bar_command i3bar -t
+#    position top
 #    font pango:Hack, FontAwesome 11
 #    strip_workspace_numbers yes
-    separator_symbol "■"
-    bindsym button4 nop
-    bindsym button5 nop
-    tray_output HDMI-0
-    tray_output DVI-D-0
-    tray_padding 0
-    height 28
-    colors {
-        statusline         $white
-        background         $transparent
-        separator          $transparent
+#    separator_symbol "■"
+#    bindsym button4 nop
+#    bindsym button5 nop
+#    tray_output HDMI-0
+#    tray_output DVI-D-0
+#    tray_padding 0
+#    height 28
+#    colors {
+#        statusline         $white
+#        background         $transparent
+#        separator          $transparent
 
         #                  BORDER       BACKGROUND   TEXT
-        focused_workspace  $transparent $transparent $white
-        inactive_workspace $transparent $transparent $darkwhite
-        active_workspace   $transparent $transparent $darkwhite
-        urgent_workspace   $darkred     $darkred     $transparent
-        binding_mode       $darkred     $darkred     $transparent
-    }
-}
+#        focused_workspace  $transparent $transparent $white
+#        inactive_workspace $transparent $transparent $darkwhite
+#        active_workspace   $transparent $transparent $darkwhite
+#        urgent_workspace   $darkred     $darkred     $transparent
+#        binding_mode       $darkred     $darkred     $transparent
+#    }
+#}
 
 # AUTOSTART
 exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpapers/spaceshuttle.png
@@ -290,6 +299,6 @@ exec --no-startup-id xautolock -time 15 -locker '~/.i3/i3exit lock' &
 #  position top
 #}
 
-exec_always --no-startup-id "pgrep --exact xev || xev -root -event randr | grep --line-buffered ScreenChangeNotify | while read change; do pkill -RTMIN+4 i3blocks; done"
-
+#exec_always --no-startup-id "pgrep --exact xev || xev -root -event randr | grep --line-buffered ScreenChangeNotify | while read change; do pkill -RTMIN+4 i3blocks; done"
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
