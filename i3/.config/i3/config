@@ -283,7 +283,7 @@ mode "$mode_power" {
 #}
 
 # AUTOSTART
-exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpapers/spaceshuttle.png
+exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpapers/space.png
 exec --no-startup-id nm-applet &
 exec --no-startup-id pasystray &
 exec --no-startup-id dunst &
