@@ -18,7 +18,7 @@
 	modules_prefix_fg = ${xrdb:color0}
 
 	urgent_bg  = ${xrdb:color1}
-	focused_bg = ${xrdb:color10}
+	focused_bg = ${xrdb:color12}
 
 	essid_p_bg   = ${xrdb:color6}
 	down_p_bg    = #5e606c
@@ -111,7 +111,7 @@
 	label    = %date% %time%
 
 	format         = <label>
-	format-padding = 0
+	format-padding = 2
 
 	format-prefix            =  
 	;format-prefix-background = ${colors.time_p_bg}
